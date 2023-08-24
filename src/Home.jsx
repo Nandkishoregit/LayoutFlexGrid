@@ -4,6 +4,26 @@ import BoardController from "./BoardController";
 
 const Home = () => {
   const [layoutType, setLayoutType] = useState("flex");
+  const [numSubContainers, setNumSubContainers] = useState(0);
+  const [selectedFlexDirection, setSelectedFlexDirection] = useState("row"); // Default value
+
+  const handleFlexDirectionChange = (label, value) => {
+    console.log("label:", label, value);
+    setSelectedFlexDirection(value);
+  };
+
+  const handleAddSubContainer = () => {
+    if (numSubContainers < 5) {
+      setNumSubContainers(numSubContainers + 1);
+    }
+  };
+
+  const handleRemoveSubContainer = () => {
+    if (numSubContainers > 0) {
+      setNumSubContainers(numSubContainers - 1);
+    }
+  };
+
   const defaultFlexProperties = {
     "flex-direction": "row",
     "flex-wrap": "nowrap",
@@ -103,6 +123,7 @@ const Home = () => {
   };
 
   const handleSelectChange = (property, value) => {
+    handleFlexDirectionChange(property, value);
     setSelectedProperties((prevSelected) => ({
       ...prevSelected,
       [property]: value,
@@ -129,10 +150,19 @@ const Home = () => {
         </button>
       </div>
       <div style={{ marginTop: "20px", display: "flex" }}>
-        <Board selectedProperties={selectedProperties} />
+        <Board
+          selectedProperties={selectedProperties}
+          numSubContainers={numSubContainers}
+          onAddSubContainer={handleAddSubContainer}
+          onRemoveSubContainer={handleRemoveSubContainer}
+          selectedFlexDirection={selectedFlexDirection} // Pass the selected flex direction
+        />
         <BoardController
           properties={layoutType === "flex" ? flexProperties : gridProperties}
+          selectedProperties={selectedProperties}
           handleSelectChange={handleSelectChange}
+          selectedFlexDirection={selectedFlexDirection}
+          handleFlexDirectionChange={handleFlexDirectionChange}
         />
       </div>
       <div
@@ -142,8 +172,14 @@ const Home = () => {
           justifyContent: "flex-end",
         }}
       >
-        <button style={circleButtonStyle}>+</button>
-        <button style={circleButtonStyle}>-</button>
+        <div style={{ marginTop: "10px" }}>
+          <button style={circleButtonStyle} onClick={handleAddSubContainer}>
+            +
+          </button>
+          <button style={circleButtonStyle} onClick={handleRemoveSubContainer}>
+            -
+          </button>
+        </div>
       </div>
     </div>
   );
