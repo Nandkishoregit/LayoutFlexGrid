@@ -4,20 +4,18 @@ const LayoutContext = React.createContext();
 
 const initialStateFlex = {
     numberOfSubContainers: 0,
-
     'layoutType': 'flex',
     "flexDirection": 'row',
     "flexWrap": 'nowrap',
-    "justifyCountent": 'flex-start',
+    "justifyContent": 'flex-start',
     "alignItems": 'flex-start',
     "alignContent": 'flex-start',
-
 };
 
 //to do later
 // const initialStateGrid = {
 //     numberOfSubContainers: 0,
-//     'layoutType': 'flex',
+//     'layoutType': 'grid',
 //     flexDirection: 'row',
 //     flexWrap: 'nowrap',
 //     justifyCountent: 'flex-start',
@@ -32,16 +30,40 @@ const initialStateFlex = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'CREATE_FlEX_CONTAINER_PROPETIES': {
-            console.log('CREATE_FlEX_CONTAINER_PROPETIES', action.payload);
+        // case 'CREATE_FlEX_CONTAINER_PROPETIES': {
+        //     console.log('CREATE_FlEX_CONTAINER_PROPETIES', action.payload);
+        //     return {
+        //         ...state,
+        //         'layoutType': action.payload.layoutType,
+        //         'flexDirection': action.payload.flexDirection,
+        //         'flexWrap': action.payload.flexWrap,
+        //         'justifyCountent': action.payload.justifyCountent,
+        //         'alignItems': action.payload.alignItems,
+        //         'alignContent': action.payload.alignContent
+        //     };
+        // }
+
+        case 'SET_FLEX_DIRECTION': {
+            console.log('SET_FLEX_DIRECTION', action.payload);
             return {
                 ...state,
-                'layoutType': action.payload.layoutType,
-                'flexDirection': action.payload.flexDirection,
+                "flexDirection": action.payload,
+            };
+        }
+
+        case 'SET_JUSTIFY_CONTENT': {
+            console.log('SET_JUSTIFY_CONTENT', action.payload);
+            return {
+                ...state,
+                "justifyContent": action.payload,
+            };
+        }
+
+        case 'SET_FLEX_WRAP': {
+            console.log('SET_FLEX_WRAP', action.payload);
+            return {
+                ...state,
                 'flexWrap': action.payload.flexWrap,
-                'justifyCountent': action.payload.justifyCountent,
-                'alignItems': action.payload.alignItems,
-                'alignContent': action.payload.alignContent
             };
         }
         // case 'DESTROY_SESSION':
@@ -57,13 +79,10 @@ const reducer = (state, action) => {
         //     };
         // }
 
-
         default:
             throw new Error(`Unrecognized action type: ${action.type}`);
     }
 };
-
-export const isLoggedInSelector = state => !!state.authToken;
 
 export const LayoutContextProvider = ({ children }) => {
     const sessionReducer = useReducer(reducer, initialStateFlex);
@@ -71,11 +90,11 @@ export const LayoutContextProvider = ({ children }) => {
 };
 
 export const useLayoutContext = () => {
-    const userSession = useContext(LayoutContext);
-    if (userSession === undefined) {
+    const layoutSession = useContext(LayoutContext);
+    if (layoutSession === undefined) {
         throw new Error(
             'useLayoutContext() hook could not read expected context. Did you forget to render <LayoutContextProvider> above it?'
         );
     }
-    return userSession;
+    return layoutSession;
 };

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useLayoutContext } from "./context/LayoutContext";
 
 const Board = ({
   selectedProperties,
@@ -11,9 +12,16 @@ const Board = ({
   const totalAvailableHeight = 400; // Total height of the first container
   const minHeight = 60; // Minimum height for each sub-container
 
-  useEffect(() => {
-    console.log("selectedFlexDirection", selectedFlexDirection);
-  }, [selectedFlexDirection]);
+  const [layoutSession, dispatch] = useLayoutContext();
+  const flexDirection = layoutSession.flexDirection;
+  const justifyContent = layoutSession.justifyContent;
+
+  // useEffect(() => {
+  //   console.log("selectedFlexDirection", selectedFlexDirection);
+  //   const layoutType = layoutSession.flexDirection;
+  //   console.log("layoutsession is:", layoutSession);
+  // }, [selectedFlexDirection, layoutSession]);
+
   // Calculate dynamic height for sub-containers
   const dynamicSubContainerHeight =
     numSubContainers > 0
@@ -25,9 +33,10 @@ const Board = ({
       style={{
         display: "flex",
         border: "1px solid red",
-        flexDirection: selectedFlexDirection, // Apply selected flex direction
+        flexDirection: flexDirection, // Apply selected flex direction
         width: "700px",
-        height: "400px", // Ensure sub-containers take full height
+        height: "400px", // Ensure sub-containers take full height,
+        justifyContent: justifyContent,
       }}
     >
       {[...Array(numSubContainers)].map((_, index) => (
