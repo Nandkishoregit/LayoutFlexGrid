@@ -13,7 +13,7 @@ const Home = () => {
   };
 
   const handleAddSubContainer = () => {
-    if (numSubContainers < 5) {
+    if (numSubContainers < 7) {
       setNumSubContainers(numSubContainers + 1);
     }
   };

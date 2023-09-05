@@ -26,7 +26,7 @@ const Board = ({
         display: "flex",
         border: "1px solid red",
         flexDirection: selectedFlexDirection, // Apply selected flex direction
-        width: "400px",
+        width: "700px",
         height: "400px", // Ensure sub-containers take full height
       }}
     >
@@ -37,25 +37,13 @@ const Board = ({
             border: "1px solid grey",
             margin: "5px",
             height: dynamicSubContainerHeight, // Set dynamic height
+
             backgroundColor: "#f0f0f0",
           }}
         >
           Sub Container {index + 1}
         </div>
       ))}
-      {/* Access and render selected properties
-      {Object.keys(selectedProperties).length > 0 && (
-        <div style={{ marginTop: "10px" }}>
-          <p>Selected Properties:</p>
-          <ul>
-            {Object.entries(selectedProperties).map(([property, value]) => (
-              <li key={property}>
-                {property}: {value}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )} */}
     </div>
   );
 };
