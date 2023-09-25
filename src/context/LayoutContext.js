@@ -59,11 +59,20 @@ const reducer = (state, action) => {
             };
         }
 
+        //need to handle this case later
         case 'SET_FLEX_WRAP': {
             console.log('SET_FLEX_WRAP', action.payload);
             return {
                 ...state,
                 'flexWrap': action.payload.flexWrap,
+            };
+        }
+
+        case 'SET_ALIGN_ITEM': {
+            console.log('SET_ALIGN_ITEM', action.payload);
+            return {
+                ...state,
+                'alignItems': action.payload.alignItems,
             };
         }
         // case 'DESTROY_SESSION':

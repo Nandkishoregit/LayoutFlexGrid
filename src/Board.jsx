@@ -15,6 +15,7 @@ const Board = ({
   const [layoutSession, dispatch] = useLayoutContext();
   const flexDirection = layoutSession.flexDirection;
   const justifyContent = layoutSession.justifyContent;
+  const alignItems = layoutSession.alignItems;
 
   // useEffect(() => {
   //   console.log("selectedFlexDirection", selectedFlexDirection);
@@ -36,7 +37,8 @@ const Board = ({
         flexDirection: flexDirection, // Apply selected flex direction
         width: "700px",
         height: "400px", // Ensure sub-containers take full height,
-        justifyContent: justifyContent,
+        justifyContent: justifyContent, // Apply selected justify content
+        alignItems: alignItems, // Apply selected align item prop
       }}
     >
       {[...Array(numSubContainers)].map((_, index) => (

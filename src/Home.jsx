@@ -12,14 +12,12 @@ const Home = () => {
   const [selectedFlexDirection, setSelectedFlexDirection] = useState("row"); // Default value
 
   const handleFlexDirectionChange = (value) => {
-    // console.log("label:", label, value);
     console.log("set flex direction:", value);
     dispatch({ type: "SET_FLEX_DIRECTION", payload: value });
     // setSelectedFlexDirection(value);
   };
 
   const handleJustifyContentChange = (value) => {
-    // console.log("label:", label, value);
     console.log("set JustifyContent:", value);
     dispatch({ type: "SET_JUSTIFY_CONTENT", payload: value });
     // setSelectedFlexDirection(value);

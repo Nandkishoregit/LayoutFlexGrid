@@ -7,6 +7,7 @@ const BoardController = ({
   selectedFlexDirection,
   handleFlexDirectionChange,
   handleJustifyContentChange,
+  handleAlignItemChange,
 }) => {
   return (
     <div
@@ -78,8 +79,24 @@ const BoardController = ({
             <option value="flex-end">flex-end</option>
             <option value="center">center</option>
             <option value="space-between">space-between</option>
-            <option value="space-between">space-around</option>
+            <option value="space-around">space-around</option>
             <option value="space-between">space-evenly</option>
+          </select>
+        </div>
+
+        {/* Select align item change */}
+        <div>
+          <label htmlFor="align-item">align item:</label>
+          <select
+            id="align-item"
+            // value={selectedFlexDirection}
+            onChange={(event) => handleJustifyContentChange(event.target.value)}
+          >
+            <option value="flex-start">flex-start</option>
+            <option value="flex-end">flex-end</option>
+            <option value="center">center</option>
+            <option value="baseline">baseline</option>
+            <option value="stretch">stretch</option>
           </select>
         </div>
       </div>
