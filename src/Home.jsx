@@ -1,19 +1,30 @@
 import React, { useState } from "react";
 import Board from "./Board";
 import BoardController from "./BoardController";
+import { useLayoutContext } from "./context/LayoutContext";
 
 const Home = () => {
+  const [userSession, dispatch] = useLayoutContext();
+  const layoutTypeSession = userSession.layoutType;
+
   const [layoutType, setLayoutType] = useState("flex");
   const [numSubContainers, setNumSubContainers] = useState(0);
   const [selectedFlexDirection, setSelectedFlexDirection] = useState("row"); // Default value
 
-  const handleFlexDirectionChange = (label, value) => {
-    console.log("label:", label, value);
-    setSelectedFlexDirection(value);
+  const handleFlexDirectionChange = (value) => {
+    console.log("set flex direction:", value);
+    dispatch({ type: "SET_FLEX_DIRECTION", payload: value });
+    // setSelectedFlexDirection(value);
+  };
+
+  const handleJustifyContentChange = (value) => {
+    console.log("set JustifyContent:", value);
+    dispatch({ type: "SET_JUSTIFY_CONTENT", payload: value });
+    // setSelectedFlexDirection(value);
   };
 
   const handleAddSubContainer = () => {
-    if (numSubContainers < 5) {
+    if (numSubContainers < 7) {
       setNumSubContainers(numSubContainers + 1);
     }
   };
@@ -155,7 +166,7 @@ const Home = () => {
           numSubContainers={numSubContainers}
           onAddSubContainer={handleAddSubContainer}
           onRemoveSubContainer={handleRemoveSubContainer}
-          selectedFlexDirection={selectedFlexDirection} // Pass the selected flex direction
+          // selectedFlexDirection={selectedFlexDirection} // Pass the selected flex direction
         />
         <BoardController
           properties={layoutType === "flex" ? flexProperties : gridProperties}
@@ -163,6 +174,7 @@ const Home = () => {
           handleSelectChange={handleSelectChange}
           selectedFlexDirection={selectedFlexDirection}
           handleFlexDirectionChange={handleFlexDirectionChange}
+          handleJustifyContentChange={handleJustifyContentChange}
         />
       </div>
       <div
